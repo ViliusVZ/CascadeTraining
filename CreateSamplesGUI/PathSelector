@@ -1,0 +1,29 @@
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
+using System;
+
+namespace CreateSamplesGUI
+{
+    public static class PathSelector
+    {
+        /// <summary>
+        /// Returns an array of specified folder's children paths.
+        /// </summary>
+        /// <returns></returns>
+        public static List<string> GetPaths()
+        {
+            using (var folderBrowserDialog = new FolderBrowserDialog())
+            {
+                var result = folderBrowserDialog.ShowDialog();
+
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(folderBrowserDialog.SelectedPath))
+                {
+                    return Directory.GetFiles(folderBrowserDialog.SelectedPath).ToList();
+                }
+            }
+            throw new FileNotFoundException("Unexpected error, file not found?");
+        }
+    }
+}
