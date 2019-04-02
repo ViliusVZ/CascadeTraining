@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Shell;
+using OpenCvSharp;
+using OpenCvSharp.CPlusPlus;
 
 namespace CreateSamplesGUI
 {
@@ -45,6 +48,16 @@ namespace CreateSamplesGUI
 
         private void _cropImagesBtn_Click(object sender, EventArgs e)
         {
+            var image = new Mat(@"C:\Users\viliu\Desktop\cat photos\20190321_212857.jpg");
+            var point = new Point2f(image.Cols/2f,image.Rows/2f);
+            if (Cv2.WaitKey(33) == 'r')
+            {
+                var lol = Cv2.GetRotationMatrix2D(point, 90, 1);
+
+            }           
+               
+
+            var window = new Window("Okay", WindowMode.FreeRatio, image);
 
         }
     }
