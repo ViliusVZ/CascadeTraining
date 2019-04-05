@@ -20,7 +20,29 @@ namespace CreateSamplesGUI
         public MainForm()
         {
             InitializeComponent();
+            _cropOutputPathTextBox.GotFocus += OnTextFocus;
+            _cropOutputPathTextBox.LostFocus += OnTextUnfocus;
         }
+
+        private void OnTextUnfocus(object sender, EventArgs e)
+        {
+            var textBox = (TextBox)sender;
+            if (textBox.Text == string.Empty)
+            {
+                textBox.Text = _cueText;
+            }
+        }
+
+        private string _cueText = "Select output path...";
+        private void OnTextFocus(object sender, EventArgs e)
+        {
+            var textBox = (TextBox)sender;
+            if (textBox.Text == _cueText)
+            {
+                textBox.Clear();
+            }
+        }
+
 
         private void _selectSourceBtn_Click(object sender, EventArgs e)
         {
@@ -48,17 +70,8 @@ namespace CreateSamplesGUI
 
         private void _cropImagesBtn_Click(object sender, EventArgs e)
         {
-            var image = new Mat(@"C:\Users\viliu\Desktop\cat photos\20190321_212857.jpg");
-            var point = new Point2f(image.Cols/2f,image.Rows/2f);
-            if (Cv2.WaitKey(33) == 'r')
-            {
-                var lol = Cv2.GetRotationMatrix2D(point, 90, 1);
-
-            }           
-               
-
-            var window = new Window("Okay", WindowMode.FreeRatio, image);
-
+            var cropperForm = new ImageCropper(_cropSourcePathTextBox.Text, _cropOutputPathTextBox.Text);
+            cropperForm.ShowDialog();
         }
     }
 }
