@@ -11,38 +11,16 @@ using System.Windows.Forms;
 using System.Windows.Shell;
 using OpenCvSharp;
 using OpenCvSharp.CPlusPlus;
+using Forms;
 
 namespace CreateSamplesGUI
 {
-
     public partial class MainForm : Form
     {
         public MainForm()
         {
             InitializeComponent();
-            _cropOutputPathTextBox.GotFocus += OnTextFocus;
-            _cropOutputPathTextBox.LostFocus += OnTextUnfocus;
         }
-
-        private void OnTextUnfocus(object sender, EventArgs e)
-        {
-            var textBox = (TextBox)sender;
-            if (textBox.Text == string.Empty)
-            {
-                textBox.Text = _cueText;
-            }
-        }
-
-        private string _cueText = "Select output path...";
-        private void OnTextFocus(object sender, EventArgs e)
-        {
-            var textBox = (TextBox)sender;
-            if (textBox.Text == _cueText)
-            {
-                textBox.Clear();
-            }
-        }
-
 
         private void _selectSourceBtn_Click(object sender, EventArgs e)
         {
@@ -70,8 +48,19 @@ namespace CreateSamplesGUI
 
         private void _cropImagesBtn_Click(object sender, EventArgs e)
         {
-            var cropperForm = new ImageCropper(_cropSourcePathTextBox.Text, _cropOutputPathTextBox.Text);
+            var cropperForm = new ImageCropper(_cropSourcePathTextBox.Text, _cropOutputPathTextBox.Text,
+                PathSelector.GetAllChildPaths(_cropSourcePathTextBox.Text));
             cropperForm.ShowDialog();
+        }
+
+        private void _cropSelectOutputBtn_Click(object sender, EventArgs e)
+        {
+            _cropOutputPathTextBox.Text = PathSelector.GetFilePath();
+        }
+
+        private void MainForm_Click(object sender, EventArgs e)
+        {
+            this.ActiveControl = label1;
         }
     }
 }

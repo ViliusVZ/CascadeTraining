@@ -37,8 +37,9 @@
             this._cropperPictureBox.BackColor = System.Drawing.Color.Black;
             this._cropperPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this._cropperPictureBox.Location = new System.Drawing.Point(0, 0);
+            this._cropperPictureBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this._cropperPictureBox.Name = "_cropperPictureBox";
-            this._cropperPictureBox.Size = new System.Drawing.Size(1240, 790);
+            this._cropperPictureBox.Size = new System.Drawing.Size(1182, 753);
             this._cropperPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this._cropperPictureBox.TabIndex = 0;
             this._cropperPictureBox.TabStop = false;
@@ -48,10 +49,11 @@
             // 
             // ImageCropper
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1240, 790);
+            this.ClientSize = new System.Drawing.Size(1182, 753);
             this.Controls.Add(this._cropperPictureBox);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "ImageCropper";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ImageCropper";

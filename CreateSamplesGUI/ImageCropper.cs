@@ -13,22 +13,33 @@ namespace CreateSamplesGUI
 {
     public partial class ImageCropper : Form
     {
-        public List<string> ImagesToCrop { get; set; }
-        public string OriginalImage { get; set; }
-        public Rectangle _selectorRectangle { get; set; }
+        private List<string> _imagesToCrop { get; set; }
         private string _outputDirectory { get; set; }
-        private const int _frameWidth = 1000;
+        private Rectangle _selectorRectangle { get; set; }
+        private const int _frameWidth = 800;
+        public string OriginalImage { get; set; }
 
-        public ImageCropper(string originalImagePath, string outputDirectory)
+        public ImageCropper(string originalImagePath, string outputDirectory, List<string> imagesToCrop)
         {
             InitializeComponent();
-            OriginalImage = originalImagePath;
+
+            _imagesToCrop = imagesToCrop;
             _outputDirectory = outputDirectory;
-            var image = ImageCropperHelper.GetScaledPicture(OriginalImage, _frameWidth, _frameWidth);
+
             this.Width = _frameWidth + 16;
             this.Height = _frameWidth + 39;
+
             _cropperPictureBox.Width = _frameWidth;
             _cropperPictureBox.Height = _frameWidth;
+
+            foreach (var imageToCrop in imagesToCrop)
+            {
+
+            }
+
+            OriginalImage = originalImagePath;
+
+            var image = ImageCropperHelper.GetScaledPicture(OriginalImage, _frameWidth, _frameWidth);
             _cropperPictureBox.Image = image;
             Refresh();
         }
@@ -43,8 +54,6 @@ namespace CreateSamplesGUI
             if (e.KeyCode == Keys.S)
             {
                 var image = _cropperPictureBox.Image;
-                //int offsetX = (_cropperPictureBox.Width - _cropperPictureBox.Image.Width) / 2;
-                //int offsetY = (_cropperPictureBox.Height - _cropperPictureBox.Image.Height) / 2;
                 var diff = _cropperPictureBox.Image.Width - _cropperPictureBox.Image.Height;
                 var location =
                     diff > 0
